@@ -13,8 +13,6 @@ configFileName = '.tldr.one.yml'
   catch e
 
 argv = require('yargs')
-    # .count('verbose')
-    # .alias('v', 'verbose')
     .help('h')
     .alias('h', 'help')
     .describe('sort', 'sort articles by attribute')
@@ -27,13 +25,12 @@ argv = require('yargs')
     .default('excludeFooter', config.cli.queryParameters.excludeFooter)
     .describe('categories', 'List all available news categories')
     .usage('Usage: tldr.one [url] [options]')
-    # .demand(1)
     .epilog('Copyright 2016 by Philipp Staender, https://tldr.one')
     .argv
 
 request.tldr = (options = {}, cb) ->
   options.method ?= 'GET'
-  options.parameters ?= {}#config.defaultQueryParameters
+  options.parameters ?= {}
   method = options.method
   # add file type and query parameter(s)
   url = options.url.replace(/\.[a-zA-Z]+$/,'')+'.txt?' + qs.stringify(queryParameters)
@@ -46,7 +43,7 @@ request.tldr = (options = {}, cb) ->
 unless config?.cli
   throw Error("No valid config file '#{configFileName}' found: Please reinstall or check manually existing config file(s) for yaml syntax")
 
-# api/v1/news-categories
+# list categories
 if argv.categories
   return request.tldr url: 'api/v1/news-categories', (err, res) ->
     try
@@ -60,8 +57,6 @@ if argv.categories
       console.error "Could not get valid data from api:\n#{error} / #{err}"
       process.exit(1)
 
-
-
 # is the first argument an url? (i.e. not starting with - or --)
 unless argv._[0]
   requestURL = config.cli.home
@@ -74,14 +69,13 @@ else
 queryParameters = {
   sort: argv.sort || config.cli.queryParameters.sort
   excludeFooter: argv.excludeFooter || config.cli.queryParameters.excludeFooter
+  limit: argv.limit || config.cli.queryParameters.limit
 }
 
 # convert arguments to numbers
 argv.debug = Number(argv.debug)
-argv.limit = Number(argv.limit)
-argv.excludeFooter = Number(argv.excludeFooter)
-
-
+queryParameters.limit = Number(queryParameters.limit)
+queryParameters.excludeFooter = Number(queryParameters.excludeFooter)
 
 request.tldr { url: requestURL, parameters: queryParameters }, (err, res) ->
   if argv.debug
