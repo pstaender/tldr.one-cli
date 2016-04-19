@@ -2,7 +2,9 @@
 
 ## Installation
 
-The tldr.one cli module requires nodejs. Install the module with:
+The **tldr.one cli module** requires nodejs.
+
+Install the module with:
 
 ```sh
   $ npm install -g tldr.one
@@ -14,7 +16,7 @@ The tldr.one cli module requires nodejs. Install the module with:
   $ tldr.one news
 ```
 
-You can query more specific periods of time:
+Query more specific periods of time:
 
 ```sh
   $ tldr.one news/yesterday
@@ -27,10 +29,17 @@ Sort articles with:
 
 ```sh
   $ tldr.one news --sort=recent
+  $ tldr.one tech --sort=popular
   $ tldr.one tech/lastMonth --sort=popular
 ```
 
-You can list all available categories with:
+Limit the number of articles:
+
+```sh
+  $ tldr.one news/europe --sort=recent --limit=5
+```
+
+List all available categories with:
 
 ```sh
   $ tldr.one --categories
@@ -50,4 +59,4 @@ You can list all available categories with:
   Tech               tech/
 ```
 
-Optional: Default values can be set in a custom `.tldr.one.yml` (needs to be located in your home dir). You can  use [the default config file as template](https://github.com/pstaender/tldr.one-cli/blob/master/src/.tldr.one.yml) and set your own in `~/.tldr.one.yml`.
+Optional: Default values can be set in a custom `.tldr.one.yml` (needs to be located in your home dir). You can  use [the default config file as template](https://github.com/pstaender/tldr.one-cli/blob/master/src/.tldr.one.yml) and set define own in `~/.tldr.one.yml`.

@@ -1,10 +1,13 @@
 {
-  "name": "tldr.one-cli-client",
-  "version": "0.0.1",
+  "name": "tldr.one",
+  "version": "0.0.2",
   "description": "Browse through articles from www.tldr.one in your terminal",
   "main": "bin/tldr.one",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "tldr.one": "bin/tldr.one"
   },
   "repository": {
     "type": "git",
