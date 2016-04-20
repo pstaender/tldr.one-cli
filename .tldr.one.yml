@@ -1,9 +1,9 @@
 cli:
   baseUrl: https://tldr.one/
-  # coloredOutput: true
+  coloredOutput: true
   home: news
-  debug: 0
+  debug: false
   queryParameters:
     limit: 500
-    excludeFooter: 1
+    excludeFooter: 0
     sort: 'popular'
