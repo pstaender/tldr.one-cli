@@ -39,6 +39,12 @@ Limit the number of articles:
   $ tldr.one news/europe --sort=recent --limit=5
 ```
 
+or just use `less` to navigate / paginate:
+
+```sh
+  $ tldr.one news/europe | less -r
+```
+
 Toggle between colored output and plain text:
 
 ```sh
