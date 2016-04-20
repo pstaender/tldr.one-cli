@@ -8,9 +8,9 @@ _ = require('lodash')
 # check and merge config file(s); in this folder and in home dir
 [ __dirname+'/../'+configFileName, require('home-dir')()+'/'+configFileName ].forEach (ymlFilePath) ->
   try
-    configData = require('yaml').eval(fs.readFileSync(ymlFilePath).toString())
-    config = _.assign config, configData
+    _.merge config, require('yaml').eval(fs.readFileSync(ymlFilePath).toString())
   catch e
+    #console.error e
 
 argv = require('yargs')
     .help('h')
@@ -21,14 +21,14 @@ argv = require('yargs')
     .describe('limit', 'number max. articles displayed')
     .default('limit', Number(config.cli.queryParameters.limit))
     .describe('debug', 'display additional debug information')
-    .choices('debug', ['0', '1'])
-    .default('debug', String(Number(config.cli.debug)))
+    .choices('debug', [0, 1])
+    .default('debug', Number(config.cli.debug))
     .describe('excludeFooter', 'hide footer')
     .default('excludeFooter', config.cli.queryParameters.excludeFooter)
     .describe('categories', 'List all available news categories')
     .describe('coloredOutput', 'Use colored terminal text')
-    .default('coloredOutput', String(Number(config.cli.coloredOutput)))
-    .choices('coloredOutput', ['0', '1'])
+    .default('coloredOutput', Number(config.cli.coloredOutput))
+    .choices('coloredOutput', [0, 1])
     .usage('Usage: tldr.one [url] [options]')
     .epilog('Copyright 2016 by Philipp Staender, https://tldr.one')
     .argv
@@ -40,7 +40,7 @@ request.tldr = (options = {}, cb) ->
   headers = {}
   headers['Accept'] = 'text/plain' unless argv.coloredOutput
   # add file type and query parameter(s)
-  url = options.url.replace(/\.[a-zA-Z]+$/,'')+'.txt?' + qs.stringify(queryParameters)
+  url = options.url.replace(/\.[a-zA-Z]+$/,'').replace(/\/+$/, '')+'.txt?' + qs.stringify(options.parameters)
   # add base url
   url = config.cli.baseUrl.replace(/\/+$/,'') + '/' + url.replace(/^(\/*|http[s]*\:\/\/)/, '')
   console.error "--> #{url} (#{method})" if argv.debug
@@ -85,11 +85,14 @@ argv.coloredOutput = Number(argv.coloredOutput)
 queryParameters.limit = Number(queryParameters.limit)
 queryParameters.excludeFooter = Number(queryParameters.excludeFooter)
 
-request.tldr { url: requestURL, parameters: queryParameters }, (err, res) ->
-  if argv.debug
+unless argv.debug
+  # pipe to stdoutt
+  request.tldr({ url: requestURL, parameters: queryParameters }).pipe process.stdout
+else
+  request.tldr { url: requestURL, parameters: queryParameters }, (err, res) ->
     console.error "<-- statusCode: #{res?.statusCode}"
-  if err or res?.statusCode isnt 200
-    console.error "couldn't find something useful (#{err || res?.statusCode})\ntldr.one --categories \tlists all available categories"
-    process.exit(1)
-  else
-    console.log res.body
+    if err or res?.statusCode isnt 200
+      console.error "couldn't find something useful (#{err || res?.statusCode})\ntldr.one --categories \tlists all available categories"
+      process.exit(1)
+    else
+      console.log res.body
