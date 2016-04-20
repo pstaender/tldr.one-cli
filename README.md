@@ -77,4 +77,4 @@ List all available options with:
   $ tldr.one -h
 ```
 
-Optional: Default values can be set in a custom `.tldr.one.yml` (needs to be located in your home dir). You can  use [the default config file as template](https://github.com/pstaender/tldr.one-cli/blob/master/src/.tldr.one.yml) and set define own in `~/.tldr.one.yml`.
+Optional: Default values can be set in a custom `.tldr.one.yml` (needs to be located in your home dir). You can  use [the default config file as template](https://github.com/pstaender/tldr.one-cli/blob/master/src/.tldr.one.yml) and define your own in `~/.tldr.one.yml`.
