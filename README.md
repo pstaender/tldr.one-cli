@@ -45,6 +45,13 @@ or just use `less` to navigate / paginate:
   $ tldr.one news/europe | less -r
 ```
 
+Order ascending or descending:
+
+```sh
+  $ tldr.one news/europe --order=+
+  $ tldr.one news/europe --order=-
+```
+
 Toggle between colored output and plain text:
 
 ```sh
@@ -58,17 +65,17 @@ List all available categories with:
 
   Available Categories:
 
-  Sports             other/sports/
-  Europe             news/europe/
-  News               news/
-  Gaming             other/gaming/
-  Television         other/television/
-  Gossip             other/gossip/
-  Science            science/
-  History            history/
-  Movies             movies/
-  Finance            finance/
-  Tech               tech/
+  Sports             other/sports
+  Europe             news/europe
+  News               news
+  Gaming             other/gaming
+  Television         other/television
+  Gossip             other/gossip
+  Science            science
+  History            history
+  Movies             movies
+  Finance            finance
+  Tech               tech
 ```
 
 List all available options with:
@@ -77,4 +84,4 @@ List all available options with:
   $ tldr.one -h
 ```
 
-Optional: Default values can be set in a custom `.tldr.one.yml` (needs to be located in your home dir). You can  use [the default config file as template](https://github.com/pstaender/tldr.one-cli/blob/master/src/.tldr.one.yml) and define your own in `~/.tldr.one.yml`.
+Optional: Default values can be set in a custom `.tldr.one.yml` (needs to be located in your home dir). You can  use [the default config file as template](https://github.com/pstaender/tldr.one-cli/blob/master/.tldr.one.yml) and define your own in `~/.tldr.one.yml`.

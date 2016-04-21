@@ -1,6 +1,6 @@
 {
   "name": "tldr.one",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Browse through articles from www.tldr.one in your terminal",
   "main": "bin/tldr.one",
   "scripts": {

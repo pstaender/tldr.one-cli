@@ -26,6 +26,9 @@ argv = require('yargs')
     .describe('excludeFooter', 'hide footer')
     .choices('excludeFooter', [0, 1])
     .default('excludeFooter', Number(config.cli.queryParameters.excludeFooter))
+    .describe('order', 'sort articles ascending or descending')
+    .choices('order', ['+', '-', 'asc', 'desc'])
+    .default('order', config.cli.queryParameters.order)
     .describe('categories', 'List all available news categories')
     .describe('coloredOutput', 'Use colored terminal text')
     .default('coloredOutput', Number(config.cli.coloredOutput))
@@ -56,10 +59,10 @@ if argv.categories
   return request.tldr url: 'api/v1/news-categories', (err, res) ->
     try
       data = JSON.parse(res.body)
-      console.log "\n# Available Categories:\n"
+      console.log "\nAvailable Categories:\n"
       data.newsCategories.forEach (newsCategory) ->
         title = newsCategory.menu_title + Array(20 - newsCategory.menu_title.length).join(' ')
-        console.log "#{title}#{newsCategory.link.replace(/^\//,'')}"
+        console.log "#{title}#{newsCategory.link.replace(/^\//,'').replace(/\/+$/,'')}"
       process.exit(0)
     catch error
       console.error "Could not get valid data from api:\n#{error} / #{err}"
@@ -78,6 +81,7 @@ queryParameters = {
   sort: argv.sort || config.cli.queryParameters.sort
   excludeFooter: argv.excludeFooter || config.cli.queryParameters.excludeFooter
   limit: argv.limit || config.cli.queryParameters.limit
+  order: argv.order || config.cli.queryParameters.order
 }
 
 # convert arguments to numbers
