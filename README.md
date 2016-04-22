@@ -80,8 +80,14 @@ List all available categories with:
 
 List all available options with:
 
-```
+```sh
   $ tldr.one -h
+```
+
+Update application (same as `npm install -g tldr.one`):
+
+```sh
+  $ tldr.one --self-update
 ```
 
 Optional: Default values can be set in a custom `.tldr.one.yml` (needs to be located in your home dir). You can  use [the default config file as template](https://github.com/pstaender/tldr.one-cli/blob/master/.tldr.one.yml) and define your own in `~/.tldr.one.yml`.
