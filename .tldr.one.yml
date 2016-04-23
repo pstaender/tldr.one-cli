@@ -3,6 +3,8 @@ cli:
   coloredOutput: true
   home: news
   debug: false
+  download: ''
+  offline: false
   queryParameters:
     limit: 500
     excludeFooter: false

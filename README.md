@@ -90,4 +90,32 @@ Update application (same as `npm install -g tldr.one`):
   $ tldr.one --self-update
 ```
 
+## Offline reading
+
+You can bulk download all summaries (i.e. for yesterday, this/last week, this/last month …) at once for all categories (takes ~ ½ - 3 mins):
+
+```sh
+  $ tldr.one --download
+```
+
+or download just specific categories (using glob pattern):
+
+```sh
+  $ tldr.one 'news/*' --download
+```
+
+Finally read the downloaded articles offline by using leading `:`:
+
+```sh
+  $ tldr.one :news/lastWeek
+```
+
+If you prefer explicit naming the offline reading switch is:
+
+```sh
+  $ tldr.one news/lastWeek --offline
+```
+
+## Configuration
+
 Optional: Default values can be set in a custom `.tldr.one.yml` (needs to be located in your home dir). You can  use [the default config file as template](https://github.com/pstaender/tldr.one-cli/blob/master/.tldr.one.yml) and define your own in `~/.tldr.one.yml`.

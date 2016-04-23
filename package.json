@@ -1,6 +1,6 @@
 {
   "name": "tldr.one",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "Browse through articles from www.tldr.one in your terminal",
   "main": "bin/tldr.one",
   "scripts": {
@@ -30,8 +30,11 @@
     "coffee-script": "^1.10.0",
     "home-dir": "^1.0.0",
     "lodash": "^4.11.1",
+    "minimatch": "^3.0.0",
+    "progress": "^1.1.8",
     "querystring": "^0.2.0",
     "request": "^2.72.0",
+    "sequence": "^3.0.0",
     "yaml": "^0.3.0",
     "yargs": "^4.6.0"
   }
