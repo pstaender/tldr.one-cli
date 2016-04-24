@@ -103,6 +103,14 @@ else
           console.log "#{title}#{newsCategory.link.replace(/^\//,'').replace(/\/+$/,'')}"
         process.exit(0)
   else
+    
+    process.stdout.on 'error', (err) ->
+      # This avoids printing a pipe error when using `tldr.one news | less` for instance
+      # see: http://stackoverflow.com/questions/12329816/error-write-epipe-when-piping-node-output-to-head
+      # quick + dirty fix (for now)
+      if err.code is "EPIPE"
+        process.exit(0)
+
     # check url
     unless requestURL
       console.error("No valid URL given #{argv._[0] || ''}")
